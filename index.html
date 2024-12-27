@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Salesforce Test Extension</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1 id="demo">This is a OAuth Test Extension</h1>
+        <button id="myButton">Authorize Org</button>
+        <br/><br/>
+
+        <div id="accessToken" style="display:none">
+            <h2>The access token is: </h2>
+            <h2 id="tokenHead"></h2>
+            <br/><br/>
+
+            <label for="fname">Account name:</label>
+            <input type="text" id="fname" value="Test Chrome Extension"><br><br>
+            <button id="accButton">Create Account</button>
+        </div>
+        <br/><br/>
+
+        <div id="accountDetails" style="display:none">
+            <h3>The Account got created successfully :</h3>
+        </div>
+    </body>
+
+    <script src="script.js"></script>
+</html>
