@@ -64,13 +64,50 @@ function makeCallout(accessCode) {
             document.getElementById("accButton").addEventListener('click',()=>{
                 createAccount()
             })
+            document.getElementById("logButton").addEventListener('click', getApexLogs);
+
+            document.getElementById("logsSection").style.display = "block";
+
         }
         else tokenAcc.innerHTML = 'Error received from server: '+d.err;
 
         tokenAcc.setAttribute('style','display:block')
 
-    })
+    }).catch(error => {
+        console.error('Error in makeCallout:', error);
+    });
+}
 
+function getApexLogs() {
+    console.log('Fetching Apex Debug Logs');
+
+    let options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+    };
+
+    let fetchRes = fetch('http://localhost:8080?AccessToken=' + encodeURIComponent(insURL.access_token) + '&url=' + encodeURIComponent(insURL.instance_url), options);
+
+    fetchRes.then(res => res.json()).then(d => {
+        console.log('Logs:', d);
+        var logsDisplay = document.getElementById("logsDisplay");
+        logsDisplay.innerHTML = '';
+
+        if (d.records && d.records.length > 0) {
+            d.records.forEach(log => {
+                var logDiv = document.createElement('div');
+                logDiv.innerHTML = `<pre><strong>Log Id:</strong> ${log.Id}<br/><strong>Log Content:</strong><br/>${log.Body}</pre>`;
+                logsDisplay.appendChild(logDiv);
+            });
+        } else {
+            logsDisplay.innerHTML = 'No logs found or an error occurred.';
+        }
+        document.getElementById("logsSection").style.display = "block";
+    }).catch(error => {
+        console.error('Error fetching logs:', error);
+    });
 }
 
 chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
