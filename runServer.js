@@ -12,12 +12,12 @@ http.createServer(function (req, res) {
             let value = makeCallout((req.url).replace('/?code=',''))
             value.then((respo)=> {
                 console.log('respo',respo)
-                res.writeHead(200, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
+                res.writeHead(200, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai'});
                 res.end(JSON.stringify(respo));
 
             }).catch((err)=>{
                 console.log('err',err)
-                res.writeHead(300, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
+                res.writeHead(300, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai'});
                 res.end(JSON.stringify({'err':err}));
             })
         }
@@ -25,11 +25,11 @@ http.createServer(function (req, res) {
             let respons = createAccount('http://abc.com'+req.url)
             respons.then((resp)=>{
                 console.log('resp',resp)
-                res.writeHead(200, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
+                res.writeHead(200, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai'});
                 res.end(JSON.stringify(resp));
             }).catch((erro)=>{
                 console.log('erro',erro)
-                res.writeHead(300, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
+                res.writeHead(300, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai'});
                 res.end(JSON.stringify(erro));
             })
 
@@ -46,6 +46,7 @@ http.createServer(function (req, res) {
 
 
 async function createAccount(url) {
+    console.log('createAccount',url)
     var url_string = new URL(url);
     return new Promise(function(myResolve, myReject){
         // Propmise then/catch block
