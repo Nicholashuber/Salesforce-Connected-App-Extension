@@ -10,7 +10,7 @@ var insURL;
 
 function createAccount() {
     console.log('inside createAcc')
-    user = { 
+    user = {
         "Name": document.getElementById("fname").value
     }
 
@@ -37,14 +37,14 @@ function createAccount() {
             mydiv.innerHTML = 'There was some error:' + JSON.stringify(d)
         }
         mydiv.setAttribute('style','display:block')
-        
-    })    
+
+    })
 }
 
 function makeCallout(accessCode) {
     console.log('before request')
     // Make request
-    
+
     let options = {
         method: 'POST',
         headers: {
@@ -68,7 +68,7 @@ function makeCallout(accessCode) {
         else tokenAcc.innerHTML = 'Error received from server: '+d.err;
 
         tokenAcc.setAttribute('style','display:block')
-        
+
     })
 
 }
@@ -80,7 +80,7 @@ chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
         element.disabled = true
         let paramString = urlString.split('?')[1];
         let queryString = new URLSearchParams(paramString);
-        
+
         var code
         for (let pair of queryString.entries()) {
             if(pair[0]=='code') code = pair[1]
@@ -94,12 +94,12 @@ chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
 
     if(urlString.includes(window.location.origin)) {
         element.addEventListener("click", function() {
-            window.open("https://login.salesforce.com/services/oauth2/authorize?client_id=<Client_Id>&redirect_uri=<Redirect_URI>&response_type=code")
+            window.open("https://login.salesforce.com/services/oauth2/authorize?client_id=3MVG9JJwBBbcN47Kc2rxoKEy7S9bKdSHmfJYEJVoYRJcLHmm7QzzUZdnMUkSvLn5G0VLeNNaYxPqvdAeaXAL2&redirect_uri=chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai/index.html&response_type=code")
         });
     }
     else {
         element.addEventListener("click", function() {
-            window.open('chrome-extension://yourExtensionURL')
+            window.open('chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai/index.html')
         });
     }
 

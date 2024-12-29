@@ -14,7 +14,7 @@ http.createServer(function (req, res) {
                 console.log('respo',respo)
                 res.writeHead(200, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
                 res.end(JSON.stringify(respo));
-    
+
             }).catch((err)=>{
                 console.log('err',err)
                 res.writeHead(300, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
@@ -30,7 +30,7 @@ http.createServer(function (req, res) {
             }).catch((erro)=>{
                 console.log('erro',erro)
                 res.writeHead(300, {'Content-Type': 'application/json','Access-Control-Allow-Origin' : 'chrome-extension:yourExtensionURL'});
-                res.end(JSON.stringify(erro));                
+                res.end(JSON.stringify(erro));
             })
 
         }
@@ -42,7 +42,7 @@ http.createServer(function (req, res) {
         res.end('Hello World!');
     }
 
-}).listen(8080); 
+}).listen(8080);
 
 
 async function createAccount(url) {
@@ -57,16 +57,16 @@ async function createAccount(url) {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
-                'Authorization' : 'Bearer '+url_string.searchParams.get("AccessToken") 
+                'Authorization' : 'Bearer '+url_string.searchParams.get("AccessToken")
             },
             body: JSON.stringify(body)
-        })      
+        })
         // Parse JSON data
         .then((response) => response.json())
-        
+
         // Showing response
-        .then((json) => {  
-            console.log('in then')  
+        .then((json) => {
+            console.log('in then')
             console.log(json)
             myResolve(json);
         })
@@ -84,20 +84,20 @@ async function makeCallout(authCode) {
 
         return new Promise(function(myResolve, myReject){
             // Propmise then/catch block
-    
+
             var fetch = require('node-fetch');
-            fetch('http://login.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=<Your_ClientId>&redirect_uri=<ChromeURL>&code='+authCode, {
+            fetch('http://login.salesforce.com/services/oauth2/token?grant_type=authorization_code&client_id=3MVG9JJwBBbcN47Kc2rxoKEy7S9bKdSHmfJYEJVoYRJcLHmm7QzzUZdnMUkSvLn5G0VLeNNaYxPqvdAeaXAL2&redirect_uri=chrome-extension://fdbaoifejjjcihdnnkaklbegkajmmdai/index.html&code='+authCode, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/x-www-form-urlencoded',
                 },
-            })      
+            })
             // Parse JSON data
             .then((response) => response.json())
-            
+
             // Showing response
-            .then((json) => {  
-                console.log('in then')  
+            .then((json) => {
+                console.log('in then')
                 console.log(json)
                 if(json.access_token) {
                     myResolve(json);
@@ -109,7 +109,7 @@ async function makeCallout(authCode) {
             .catch(err => console.log(err))
 
         })
-      
+
 }
 
 
